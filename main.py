@@ -35,6 +35,10 @@ class Record:
     def edit_phone(self, old_phone, new_phone):
         phone_to_edit = self.find_phone(old_phone)
         if phone_to_edit:
+            try:
+                new_phone = Phone(new_phone)
+            except ValueError as e:
+                raise ValueError(f"Failed to replace phone {old_phone}. {e}")
             self.remove_phone(old_phone)
             self.add_phone(new_phone)
         else:
@@ -89,7 +93,7 @@ if __name__=="__main__":
 
     # Знаходження та редагування телефону для John
     john = book.find("John")
-    john.edit_phone("1234567890", "1112223333")
+    john.edit_phone("1234567890", "111223333")
 
     print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
 
